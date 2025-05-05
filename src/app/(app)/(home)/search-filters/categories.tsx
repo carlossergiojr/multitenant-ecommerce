@@ -6,13 +6,13 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ListFilterIcon } from "lucide-react"
 import CategoriesSidebar from "./categories-sidebar"
-import { CustomCategory } from "../types"
+import { useTRPC } from "@/trpc/client"
+import { useSuspenseQuery } from "@tanstack/react-query"
 
-interface CategoriesProps {
-  data: CustomCategory[]
-}
+const Categories = () => {
+  const trpc = useTRPC()
+  const { data } = useSuspenseQuery(trpc.categories.getMany.queryOptions())
 
-const Categories = ({ data }: CategoriesProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const measureRef = useRef<HTMLDivElement>(null)
   const viewAllRef = useRef<HTMLDivElement>(null)
@@ -66,7 +66,6 @@ const Categories = ({ data }: CategoriesProps) => {
     <div className="relative w-full">
       {/* Categories sidebar */}
       <CategoriesSidebar
-        data={data}
         isOpen={isSidebarOpen}
         onOpenChange={setIsSidebarOpen}
       />
