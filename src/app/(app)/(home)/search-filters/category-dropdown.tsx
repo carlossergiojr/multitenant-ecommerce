@@ -5,11 +5,11 @@ import { cn } from "@/lib/utils"
 import React, { useRef, useState } from "react"
 import { useDropdownPosition } from "./use-dropdown-position"
 import SubcategoryMenu from "./subcategory-menu"
-import { CustomCategory } from "../types"
 import Link from "next/link"
+import { CategoriesGetManyOutput } from "@/modules/categories/types"
 
 interface CategoryDropdownProps {
-  category: CustomCategory
+  category: CategoriesGetManyOutput[1]
   isActive?: boolean
   isNavigationHovered?: boolean
 }
@@ -55,7 +55,6 @@ const CategoryDropdown = ({
           </Link>
         </Button>
 
-        {/* black arrow svg */}
         {category.subcategories && category.subcategories.length > 0 && (
           <div
             className={cn(
